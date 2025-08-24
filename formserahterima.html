@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BRIBOX KANPUS</title>
+  <link rel="icon" type="image/png" href="./favicon.png" />
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2 class="logo">
+      <img src="favicon.png" alt="Logo" class="logo-icon" />
+       BRIBOX KANPUS</h2>
+
+      <nav>
+        <a href="index.html">📋 Trackmate</a>
+        <a href="appsheet.html">📋 AppSheet</a>
+        <a href="formserahterima.html" class="active">📝 Form Serah Terima</a>        
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="dashboard-header">
+        <button class="sidebar-toggle-btn" onclick="toggleSidebar()">☰</button>
+        <h1><span class="material-icons">receipt_long</span> Form Serah Terima</h1>
+        <button id="toggleModeBtn" onclick="toggleDarkMode()">🌙</button>
+      </header>
+
+      <section class="card">
+        <div class="form-group">
+          <label for="tglSerahTerima"><b>Input Tanggal Serah Terima</b> (untuk semua laporan) :</label>
+          <input type="date" id="tglSerahTerima"/>
+        </div>
+
+        <h3 style="margin:10px 0 8px">Histori Pekerjaan Bulan Ini</h3>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th style="text-align: center;">No.</th>
+                <th style="text-align: center;">Tanggal Serah Terima</th>
+                <th style="text-align: center;">Nama Uker</th>
+                <th style="text-align: center;">Tanggal Pekerjaan</th>
+                <th style="text-align: center;">File PDF</th>
+                <th style="text-align: center;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="historiBody">
+              <tr><td colspan="6" style="text-align:center;">Belum ada data histori. Unggah PDF di Trackmate atau AppSheet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="btn-row">
+          <button id="btnGenerate" class="primary">Generate PDF</button>
+          <button id="btnReset" class="danger">Reset Histori</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  
+
+  <script>
+    // Aktifkan darkmode otomatis jika sebelumnya sudah diaktifkan
+  if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+  }
+
+  // Perbarui ikon tombol sesuai status
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('toggleModeBtn');
+    if (toggleBtn) {
+      toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    }
+  });
+
+  function toggleDarkMode() {
+    const isDark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', isDark); // simpan status ke localStorage
+    document.getElementById('toggleModeBtn').textContent = isDark ? '☀️' : '🌙';
+  }
+
+  function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('hidden');
+  }
+  </script>
+  <!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- AutoTable -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
+  <script src="formserahterima.js"></script>
+</body>
+</html>
