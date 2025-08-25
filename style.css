@@ -113,28 +113,34 @@ nav a:hover, nav a.active { background-color: #3498db; color: #fff; }
 }
 label { font-weight: 600; }
 
-/* Inputs */
-input[type="file"], select, pre, input[type="date"] {
-  display: block; 
-  margin-bottom: 1rem; 
-  padding: 0.6rem; 
-  font-size: 1rem;
-  width: 100%; 
-  border: 1px solid #ccc; 
-  border-radius: 8px; 
-  background:#fff;
-}
-
 pre { background-color: #ecf0f1; min-height: 120px; white-space: pre-wrap; }
 
-/* Upload button */
 .upload-label {
   position: relative;
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  background-color: #3498db; color: #fff; padding: 14px;
-  border-radius: 8px; cursor: pointer; user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #3498db;
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
   transition: background-color .2s, transform .05s;
   margin-bottom: 1rem;
+}
+
+/* Sembunyikan tampilan default input file */
+.upload-label input[type="file"] {
+  position: absolute;
+  inset: 0;              /* full area tombol */
+  width: 100%;
+  height: 100%;
+  opacity: 0;            /* invisible */
+  cursor: pointer;
+  font-size: 0;
 }
 .upload-label:hover { background-color: #2980b9; }
 .upload-label:active { transform: scale(0.96); }
