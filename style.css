@@ -142,6 +142,10 @@ pre { background-color: #ecf0f1; min-height: 120px; white-space: pre-wrap; }
   cursor: pointer;
   font-size: 0;
 }
+/* Sembunyikan SEMUA input file… */
+input[type="file"] {
+  display: none !important; /* yang duplikat jadi hilang */
+}
 .upload-label:hover { background-color: #2980b9; }
 .upload-label:active { transform: scale(0.96); }
 .upload-label input[type="file"] {
