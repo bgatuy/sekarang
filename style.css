@@ -52,7 +52,7 @@ nav { display: flex; flex-direction: column; gap: 0.75rem; }
 nav a {
   text-decoration: none; color: #ddd;
   padding: 0.5rem 1rem; border-radius: 8px;
-  transition: background-color .2s, color .2s;
+  transition: background-color .2s, color .2s, transform .05s;
 }
 /* hover hanya untuk desktop — lihat media query di bawah */
 
@@ -134,62 +134,17 @@ input[type="file"], select, pre, input[type="date"], input[type="text"], input[t
 
 pre { background-color: #ecf0f1; min-height: 120px; white-space: pre-wrap; }
 
-/* Upload button (label) */
-.upload-label {
-  display: inline-flex; align-items: center; gap: 8px;
-  background-color: #3498db; color: #fff; padding: 14px;
-  border-radius: 8px; cursor: pointer; user-select: none;
-  transition: transform .05s, background-color .2s;
-  margin-bottom: 1rem;
-}
-input[type="file"] { display: none; }
-
-/* Output preview (juga dipakai file list merge) */
-.output-preview {
-  background:#ecf0f1; 
-  border:1px solid #d8e1e8; 
-  border-radius:8px; padding:12px;
-  min-height:110px; 
-  overflow:auto;
-  font-size: 12px;
-}
-
 /* =========================
-   PER HALAMAN: TOMBOL & UPLOAD
-========================= */
-body[data-page="trackmate"] .upload-label,
-body[data-page="trackmate"] #copyBtn,
-body[data-page="appsheet"] .upload-label,
-body[data-page="appsheet"] #copyBtn {
-  display: flex;
-  margin: 12px auto;
-  text-align: center;
-}
-body[data-page="serah"] .btn-row {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 20px;
-}
-body[data-page="merge"] .upload-label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 12px auto;
-}
-body[data-page="merge"] .btn-row { justify-content: center; }
-
-/* =========================
-   BUTTONS (mobile-first)
+   TOMBOL UTAMA & VARIAN (mobile-first)
 ========================= */
 button {
-  padding: 0.9rem 2.4rem; 
-  font-size: 0.9rem; 
+  padding: 0.8rem 2rem;
+  font-size: 0.8rem; 
   border: none; 
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer; 
-  transition: background-color .15s ease, transform .05s ease;
+  transition: background-color .15s ease, transform .05s ease, filter .15s ease;
 }
 
 .card button,
@@ -202,38 +157,55 @@ button {
 }
 
 .card .upload-label { max-width: 180px; width: 100%; }
-.card button { width: 100%; max-width: 200px; }
+.card button { max-width: 100%; }
 
-.btn-row { display: flex; justify-content: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+/* Baris tombol horizontal */
+.btn-row { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
 .btn-row button { margin: 0; }
 
-/* Variants */
-button.primary { background-color: #2ecc71; color: #fff; }
-button.danger  { background:#e74c3c; color:#fff; }
-
-/* Desktop-only hover (pointer: fine) */
-@media (hover: hover) and (pointer: fine) {
-  nav a:hover, nav a.active { background-color: #3498db; color: #fff; }
-  .upload-label:hover { background-color: #2980b9; }
-  .btn-del:hover { background-color: #c82333; }
-  button.primary:hover { background-color: #27ae60; }
-  button.danger:hover  { background:#c0392b; }
+/* Variants umum */
+button.primary { 
+  background-color: #2ecc71; 
+  color: #fff; 
 }
 
-/* Mobile: non-hover, pakai :active */
-@media (hover: none), (pointer: coarse) {
-  nav a:hover { background: none; color: inherit; } /* matikan efek hover mobile */
-  .upload-label:hover,
-  .btn-del:hover,
-  button.primary:hover,
-  button.danger:hover { background: inherit; }
-
-  .upload-label:active { transform: translateY(1px); background-color: #2980b9; }
-  button:active { transform: translateY(1px); }
+button.danger { 
+  background:#e74c3c; 
+  color:#fff; 
 }
 
-/* Override khusus tombol Hapus */
-.btn-del {
+/* =========================
+   LABEL UPLOAD SEBAGAI TOMBOL
+   (Dipakai untuk tombol Upload File)
+========================= */
+/* -- TANDA: TOMBOL UPLOAD -- */
+.upload-label,
+.btn-upload { /* alias agar bisa pakai class .btn-upload */
+  display: inline-flex; align-items: center; gap: 8px;
+  background-color: #3498db; color: #fff; padding: 12px;
+  border-radius: 8px; cursor: pointer; user-select: none;
+  transition: transform .05s, background-color .2s, filter .15s;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+input[type="file"] { display: none; }
+
+/* =========================
+   TOMBOL SPESIFIK YANG DIMINTA
+========================= */
+/* -- TANDA: TOMBOL COPY (disamakan dengan PRIMARY #2ecc71) -- */
+#copyBtn, .btn-copy { background:#2ecc71; color:#fff; }
+
+/* -- TANDA: TOMBOL GENERATE -- */
+#generateBtn, .btn-generate { background:#16a34a; color:#fff; }
+
+/* -- TANDA: TOMBOL RESET HISTORI -- */
+#resetHistoryBtn, .btn-reset { background:#d97706; color:#fff; }
+
+/* Override khusus tombol Hapus (kolom aksi) */
+/* -- TANDA: TOMBOL HAPUS (AKSI) -- */
+.btn-del,
+.btn-delete { 
   background-color: #dc3545;
   color: #fff;
   padding: 8px 15px;
@@ -242,7 +214,62 @@ button.danger  { background:#e74c3c; color:#fff; }
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.2s ease, transform .05s ease;
+  transition: background-color 0.2s ease, transform .05s ease, filter .15s ease;
+}
+
+/* =========================
+   MOBILE INTERACTION — non-hover device
+   Fokus utama :active biar “kerasa ditekan”
+========================= */
+@media (hover: none), (pointer: coarse) {
+  nav a:hover { background: none; color: inherit; } /* matikan hover di mobile */
+  .upload-label:hover,
+  .btn-upload:hover,
+  .btn-del:hover, .btn-delete:hover,
+  button.primary:hover,
+  button.danger:hover,
+  #copyBtn:hover, .btn-copy:hover,
+  #generateBtn:hover, .btn-generate:hover,
+  #resetHistoryBtn:hover, .btn-reset:hover { background: inherit; }
+
+  .upload-label:active,
+  .btn-upload:active,
+  button:active,
+  .btn-del:active, .btn-delete:active,
+  #copyBtn:active, .btn-copy:active,
+  #generateBtn:active, .btn-generate:active,
+  #resetHistoryBtn:active, .btn-reset:active {
+    transform: translateY(1px);
+    filter: brightness(0.95);
+  }
+}
+
+/* =========================
+   DESKTOP INTERACTION — device dengan hover
+   Tambah :hover + :active yang halus
+========================= */
+@media (hover: hover) and (pointer: fine) {
+  nav a:hover, nav a.active { background-color: #3498db; color: #fff; transform: translateX(2px); }
+
+  .upload-label:hover, .btn-upload:hover { background-color: #2980b9; filter: brightness(1.05); }
+  #copyBtn:hover, .btn-copy:hover { filter: brightness(1.06); }
+  #generateBtn:hover, .btn-generate:hover { filter: brightness(1.06); }
+  #resetHistoryBtn:hover, .btn-reset:hover { filter: brightness(1.06); }
+  .btn-del:hover, .btn-delete:hover { background-color: #c82333; }
+
+  button.primary:hover { background-color: #27ae60; }
+  button.danger:hover  { background:#c0392b; }
+
+  /* Active di desktop: balik netral + sedikit gelap */
+  .upload-label:active, .btn-upload:active,
+  #copyBtn:active, .btn-copy:active,
+  #generateBtn:active, .btn-generate:active,
+  #resetHistoryBtn:active, .btn-reset:active,
+  .btn-del:active, .btn-delete:active,
+  button:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+  }
 }
 
 /* =========================
@@ -257,6 +284,23 @@ button.danger  { background:#e74c3c; color:#fff; }
   font-size:.8rem;
 }
 .table thead th { background:#f7fafc; font-weight:700; }
+
+/* Kolom aksi: rapikan tombol delete */
+td.aksi, .col-aksi{ white-space: nowrap; }
+td.aksi .btn-delete, .col-aksi .btn-delete,
+td.aksi .btn-del, .col-aksi .btn-del{ padding: 8px 12px; font-weight: 700; }
+
+/* =========================
+   OUTPUT PREVIEW (juga dipakai file list merge)
+========================= */
+.output-preview {
+  background:#ecf0f1; 
+  border:1px solid #d8e1e8; 
+  border-radius:8px; padding:12px;
+  min-height:110px; 
+  overflow:auto;
+  font-size: 12px;
+}
 
 /* =========================
    MERGE PAGE HELPERS
@@ -311,11 +355,11 @@ button.danger  { background:#e74c3c; color:#fff; }
     margin-bottom: .75rem;
   }
 
-  .upload-label { padding: 8px 10px; font-size: .9rem; border-radius: 6px; gap: 6px; margin-bottom: .75rem; }
+  .upload-label, .btn-upload { padding: 8px 10px; font-size: .9rem; border-radius: 6px; gap: 6px; margin-bottom: .75rem; }
   .output-preview { font-size: 11px; min-height: 100px; padding: 10px; }
 
   /* Buttons di mobile */
-  .card .upload-label { max-width: 150px; width: 100%; }
+  .card .upload-label, .card .btn-upload { max-width: 150px; width: 100%; }
   .card button { width: 100%; max-width: 150px; }
 
   .btn-row { display: flex; justify-content: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
@@ -339,7 +383,48 @@ button.danger  { background:#e74c3c; color:#fff; }
   body.dark-mode .sidebar-toggle-btn { color: #fff; }
 }
 
-/* Toast */
+/* =========================
+   PER HALAMAN: TOMBOL & UPLOAD
+========================= */
+body[data-page="trackmate"] .upload-label,
+body[data-page="trackmate"] .btn-upload,
+body[data-page="trackmate"] #copyBtn,
+body[data-page="trackmate"] .btn-copy,
+body[data-page="appsheet"] .upload-label,
+body[data-page="appsheet"] .btn-upload,
+body[data-page="appsheet"] #copyBtn,
+body[data-page="appsheet"] .btn-copy {
+  display: flex;
+  margin: 12px auto;
+  text-align: center;
+}
+body[data-page="serah"] .btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+body[data-page="merge"] .upload-label,
+body[data-page="merge"] .btn-upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 12px auto;
+}
+body[data-page="merge"] .btn-row { justify-content: center; }
+
+/* =========================
+   FOCUS VISIBLE (aksesibel)
+========================= */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.35);
+  border-radius: 8px;
+}
+
+/* =========================
+   TOAST
+========================= */
 .toast {
   position: fixed;
   top: 20px;
@@ -362,3 +447,12 @@ button.danger  { background:#e74c3c; color:#fff; }
    MISC
 ========================= */
 .logo-icon { width: 50px; height: 50px; margin-right: 0; vertical-align: middle; }
+
+/* =========================
+   FORCE OVERRIDES (antiselip)
+   — taruh PALING BAWAH agar menang spesifisitas
+========================= */
+#copyBtn, .btn-copy {
+  background-color: #2ecc71 !important; /* samain persis primary */
+  color: #fff !important;
+}
