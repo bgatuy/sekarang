@@ -2,31 +2,28 @@
    RESET & BASE
 ========================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html, body { height: 100%; -webkit-text-size-adjust: 100%; }
-
 body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #f4f4f4;
   color: #333;
   line-height: 1.5;
-  -webkit-tap-highlight-color: transparent; /* Hilangin highlight biru iOS/Android */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* =========================
    DARK MODE
 ========================= */
-body.dark-mode { background-color: #1e1e1e; color: #f0f0f0; }
-body.dark-mode .card { background-color: #2a2a2a; }
+body.dark-mode { background:#1e1e1e; color:#f0f0f0; }
+body.dark-mode .card { background:#2a2a2a; }
 body.dark-mode input,
 body.dark-mode select,
 body.dark-mode pre,
 body.dark-mode .output-preview {
-  background-color: #3b3b3b; color: #fff; border-color: #555;
+  background:#3b3b3b; color:#fff; border-color:#555;
 }
-body.dark-mode .sidebar { background-color: #141414; }
-body.dark-mode nav a { color: #ccc; }
-/* Active hanya ditampilkan di desktop (lihat media query di bawah) */
+body.dark-mode .sidebar { background:#141414; }
+body.dark-mode nav a { color:#ccc; }
 body.dark-mode .table th,
 body.dark-mode .table td { background:#2b2b2b; border-color:#555; color:#eee; }
 body.dark-mode .danger { background:#c0392b; }
@@ -35,354 +32,98 @@ body.dark-mode .spinner { border-color:#555; border-top-color:#3498db; }
 /* =========================
    DASHBOARD LAYOUT
 ========================= */
-.dashboard { display: flex; min-height: 100vh; }
-
-/* Sidebar */
+.dashboard { display:flex; min-height:100vh; }
 .sidebar {
-  background-color: #1f2b37;
-  padding: 2rem 1rem;
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  flex-shrink: 0;
+  background:#1f2b37; padding:2rem 1rem; width:250px;
+  display:flex; flex-direction:column; gap:2rem; flex-shrink:0;
 }
-.logo { font-size: 1.2rem; font-weight: bold; color: #fff; }
-nav { display: flex; 
-  flex-direction: column; 
-  gap: 1rem; 
-}
+.logo { font-size:1.2rem; font-weight:bold; color:#fff; }
+nav { display:flex; flex-direction:column; gap:1rem; }
 nav a {
-  text-decoration: none; color: #ddd;
-  padding: 0.5rem 1rem; border-radius: 8px;
-  transition: background-color .2s, color .2s, transform .05s;
+  text-decoration:none; color:#ddd; padding:0.5rem 1rem;
+  border-radius:8px; transition:background-color .2s,color .2s,transform .05s;
 }
-/* hover hanya untuk desktop — lihat media query di bawah */
-
-/* Main */
-.main { flex: 1; padding: 2rem; }
-
-/* Header */
+.main { flex:1; padding:2rem; }
 .dashboard-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 1.5rem;
-  position: relative;
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:1.5rem; position:relative;
 }
 .sidebar-toggle-btn {
-  display: none;
-  background: none; border: none;
-  font-size: 1.6rem; line-height: 1;
-  cursor: pointer; margin-right: 1rem;
-  color: #111; /* ikut light mode */
+  display:none; background:none; border:none; font-size:1.6rem;
+  cursor:pointer; margin-right:1rem; color:#111;
 }
-
-/* Center only the header title */
 .dashboard-header .page-title,
 .dashboard-header h1,
 .dashboard-header h3 {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  text-align: center;
-  pointer-events: none;
+  position:absolute; left:50%; transform:translateX(-50%);
+  margin:0; text-align:center; pointer-events:none;
 }
 
 /* =========================
    CARDS & FORMS
 ========================= */
 .card {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  background:#fff; padding:1.5rem; border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
-.card h3 { margin-bottom: 1rem; text-align: center; } /* judul section center */
-
+.card h3 { margin-bottom:1rem; text-align:center; }
 .form-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* ini kuncinya */
-  gap: .5rem;
-  margin: 1rem 0;
+  display:flex; flex-direction:column; align-items:center;
+  gap:.5rem; margin:1rem 0;
 }
-.form-group select {
-  max-width: 180px;
-  width: 100%;
-  font-size: 12px;
-  text-align: left;
-  text-align-last: center;
-}
-
+.form-group select,
 .form-group input[type="date"] {
-  max-width: 180px;
-  width: 100%;
-  font-size: 13px;
-  text-align: center;
-  text-align-last: center;
+  max-width:180px; width:100%; font-size:13px;
+  text-align:center; text-align-last:center;
 }
-label { font-weight: 600; }
-
-/* Inputs */
-input[type="file"], select, pre, input[type="date"], input[type="text"], input[type="number"] {
-  display: block; 
-  margin-bottom: 1rem; 
-  padding: 0.6rem; 
-  font-size: 1rem;
-  width: 100%; 
-  border: 1px solid #ccc; 
-  border-radius: 8px; 
-  background:#fff;
+label { font-weight:600; }
+input[type="file"], select, pre,
+input[type="date"], input[type="text"], input[type="number"] {
+  display:block; width:100%; margin-bottom:1rem;
+  padding:0.6rem; font-size:1rem;
+  border:1px solid #ccc; border-radius:8px; background:#fff;
 }
-
-pre { background-color: #ecf0f1; min-height: 120px; white-space: pre-wrap; }
+pre { background:#ecf0f1; min-height:120px; white-space:pre-wrap; }
 
 /* =========================
-   TOMBOL UTAMA & VARIAN (mobile-first)
+   BUTTONS
 ========================= */
 button {
-  padding: 0.9rem 2rem;
-  font-size: 0.9rem; 
-  border: none; 
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer; 
-  transition: background-color .15s ease, transform .05s ease, filter .15s ease;
+  padding:0.9rem 2rem; font-size:0.9rem; border:none; border-radius:8px;
+  font-weight:bold; cursor:pointer;
+  transition:background-color .15s ease,transform .05s ease,filter .15s ease;
 }
-
-.card button,
-.card .upload-label {
-  margin-left: auto;
-  margin-right: auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.card button, .card .upload-label {
+  margin:0 auto; display:inline-flex; align-items:center; justify-content:center;
 }
+.card .upload-label { max-width:180px; width:100%; }
+.card button { max-width:100%; }
+.btn-row { display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; }
+button.primary { background:#2ecc71; color:#fff; }
+button.danger  { background:#e74c3c; color:#fff; }
 
-.card .upload-label { max-width: 180px; width: 100%; }
-.card button { max-width: 100%; }
-
-/* Baris tombol horizontal */
-.btn-row { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
-.btn-row button { margin: 0; }
-
-/* Variants umum */
-button.primary { 
-  background-color: #2ecc71; 
-  color: #fff; 
+/* Upload label (tombol file) */
+.upload-label, .btn-upload {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#3498db; color:#fff; padding:12px;
+  border-radius:8px; cursor:pointer; user-select:none;
+  transition:transform .05s, background-color .2s, filter .15s;
+  margin-bottom:1rem; font-size:0.9rem;
 }
+input[type="file"] { display:none; }
 
-button.danger { 
-  background:#e74c3c; 
-  color:#fff; 
-}
-
-/* =========================
-   LABEL UPLOAD SEBAGAI TOMBOL
-   (Dipakai untuk tombol Upload File)
-========================= */
-/* -- TANDA: TOMBOL UPLOAD -- */
-.upload-label,
-.btn-upload { /* alias agar bisa pakai class .btn-upload */
-  display: inline-flex; align-items: center; gap: 8px;
-  background-color: #3498db; color: #fff; padding: 12px;
-  border-radius: 8px; cursor: pointer; user-select: none;
-  transition: transform .05s, background-color .2s, filter .15s;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-}
-input[type="file"] { display: none; }
-
-/* =========================
-   TOMBOL SPESIFIK YANG DIMINTA
-========================= */
-/* -- TANDA: TOMBOL COPY (disamakan dengan PRIMARY #2ecc71) -- */
-#copyBtn, .btn-copy { background:#2ecc71; color:#fff; }
-
-/* -- TANDA: TOMBOL GENERATE -- */
+/* Tombol spesifik */
+#copyBtn, .btn-copy     { background:#2ecc71; color:#fff; }
 #generateBtn, .btn-generate { background:#16a34a; color:#fff; }
-
-/* -- TANDA: TOMBOL RESET HISTORI -- */
 #resetHistoryBtn, .btn-reset { background:#d97706; color:#fff; }
-
-/* Override khusus tombol Hapus (kolom aksi) */
-/* -- TANDA: TOMBOL HAPUS (AKSI) -- */
-.btn-del,
-.btn-delete { 
-  background-color: #dc3545;
-  color: #fff;
-  padding: 8px 15px;
-  font-size: 0.75rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease, transform .05s ease, filter .15s ease;
+.btn-del, .btn-delete {
+  background:#dc3545; color:#fff; padding:8px 15px;
+  font-size:.75rem; border:none; border-radius:6px;
+  font-weight:bold; cursor:pointer;
+  transition:background-color .2s, transform .05s, filter .15s;
 }
 
-/* =========================
-   MOBILE INTERACTION — non-hover device
-   Fokus utama :active biar “kerasa ditekan”
-========================= */
-@media (hover: none), (pointer: coarse) {
-  /* matikan hover hanya untuk link nav */
-  nav a:hover { background-color: #3498db; color: #fff; transform: translateX(2px); }
-
-  /* biarkan tombol ga diubah di :hover mobile */
-  .upload-label:active,
-  .btn-upload:active,
-  button:active,
-  .btn-del:active, .btn-delete:active,
-  #copyBtn:active, .btn-copy:active,
-  #generateBtn:active, .btn-generate:active,
-  #resetHistoryBtn:active, .btn-reset:active {
-    transform: translateY(1px);
-    filter: brightness(0.95);
-  }
-}
-
-/* =========================
-   DESKTOP INTERACTION — device dengan hover
-   Tambah :hover + :active yang halus
-========================= */
-@media (hover: hover) and (pointer: fine) {
-  nav a:hover, nav a.active { background-color: #3498db; color: #fff; transform: translateX(2px); }
-
-  .upload-label:hover, .btn-upload:hover { background-color: #2980b9; filter: brightness(1.05); }
-  #copyBtn:hover, .btn-copy:hover { filter: brightness(1.06); }
-  #generateBtn:hover, .btn-generate:hover { filter: brightness(1.06); }
-  #resetHistoryBtn:hover, .btn-reset:hover { filter: brightness(1.06); }
-  .btn-del:hover, .btn-delete:hover { background-color: #c82333; }
-
-  button.primary:hover { background-color: #27ae60; }
-  button.danger:hover  { background:#c0392b; }
-
-  /* Active di desktop: balik netral + sedikit gelap */
-  .upload-label:active, .btn-upload:active,
-  #copyBtn:active, .btn-copy:active,
-  #generateBtn:active, .btn-generate:active,
-  #resetHistoryBtn:active, .btn-reset:active,
-  .btn-del:active, .btn-delete:active,
-  button:active {
-    transform: translateY(0);
-    filter: brightness(0.95);
-  }
-}
-
-/* =========================
-   TABLES (Form Serah Terima)
-========================= */
-.table-wrap { width:100%; overflow:auto; -webkit-overflow-scrolling: touch; }
-.table { width:100%; border-collapse: collapse; background:#fff; }
-.table th, .table td {
-  border:1px solid #e3e3e3; 
-  padding:6px; 
-  text-align:center; 
-  font-size:.8rem;
-}
-.table thead th { background:#f7fafc; font-weight:700; }
-
-/* Kolom aksi: rapikan tombol delete */
-td.aksi, .col-aksi{ white-space: nowrap; }
-td.aksi .btn-delete, .col-aksi .btn-delete,
-td.aksi .btn-del, .col-aksi .btn-del{ padding: 8px 12px; font-weight: 700; }
-
-/* =========================
-   OUTPUT PREVIEW (juga dipakai file list merge)
-========================= */
-.output-preview {
-  background:#ecf0f1; 
-  border:1px solid #d8e1e8; 
-  border-radius:8px; padding:12px;
-  min-height:110px; 
-  overflow:auto;
-  font-size: 12px;
-}
-
-/* =========================
-   MERGE PAGE HELPERS
-========================= */
-#fileList { margin-top: .5rem; }
-#loading { display:none; text-align:center; margin-top:10px; font-weight:600; }
-.spinner {
-  width: 18px; height: 18px; border-radius: 50%;
-  border: 3px solid #ccc; border-top-color:#3498db;
-  display:inline-block; animation: spin 1s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 768px) {
-  .dashboard { flex-direction: column; }
-
-  .sidebar {
-    transition: transform 0.3s ease;
-    position: fixed; top: 0; left: 0; height: 100%;
-    z-index: 999; transform: translateX(-100%);
-    width: 60vw; padding: 1rem 1rem; gap: 2.5rem;
-  }
-  .sidebar.visible { transform: translateX(0); }
-  .sidebar-overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.4);
-    z-index: 998;
-  }
-  .sidebar-overlay.show { display: block; }
-
-  .sidebar-toggle-btn { display: inline-block; font-size: 1.4rem; }
-  .main { padding: 1rem; }
-  .dashboard-header { gap: .75rem; margin-bottom: 1rem; }
-
-  html { font-size: 12px; }
-  .card { padding: 1rem; border-radius: 10px; }
-  .card h3 { margin-bottom: .75rem; font-size: 1.05rem; line-height: 1.3; }
-
-  .form-group { gap: .4rem; margin: .75rem 0; max-width: 100%; }
-  label { font-size: .95rem; }
-  .form-group select { font-size: 11px; }
-
-  input[type="date"], select, pre {
-    font-size: .95rem;
-    padding: .5rem .6rem;
-    border-radius: 6px;
-    margin-bottom: .75rem;
-  }
-
-  .upload-label, .btn-upload { padding: 8px 10px; font-size: .9rem; border-radius: 6px; gap: 6px; margin-bottom: .75rem; }
-  .output-preview { font-size: 11px; min-height: 100px; padding: 10px; }
-
-  /* Buttons di mobile */
-  .card .upload-label, .card .btn-upload { max-width: 150px; width: 100%; }
-  .card button { width: 100%; max-width: 150px; }
-
-  .btn-row { display: flex; justify-content: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
-  .btn-row button { margin: 0; }
-
-  .dashboard-header .page-title,
-  .dashboard-header h1,
-  .dashboard-header h3 { 
-    position: static;
-    transform: none;
-    margin: 0 auto;
-    text-align: center;
-    pointer-events: auto;
-    font-size: 1.6rem;
-    flex: 1;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  body.dark-mode .sidebar-toggle-btn { color: #fff; }
-}
-
-/* =========================
-   PER HALAMAN: TOMBOL & UPLOAD
-========================= */
+/* Pastikan tombol Upload & Copy di Trackmate/AppSheet center */
 body[data-page="trackmate"] .upload-label,
 body[data-page="trackmate"] .btn-upload,
 body[data-page="trackmate"] #copyBtn,
@@ -392,64 +133,161 @@ body[data-page="appsheet"] .btn-upload,
 body[data-page="appsheet"] #copyBtn,
 body[data-page="appsheet"] .btn-copy {
   display: flex;
-  margin: 12px auto;
+  justify-content: center;
+  margin: 12px auto;   /* ini kunci biar center */
   text-align: center;
 }
-body[data-page="serah"] .btn-row {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 20px;
-}
-body[data-page="merge"] .upload-label,
-body[data-page="merge"] .btn-upload {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 12px auto;
-}
-body[data-page="merge"] .btn-row { justify-content: center; }
+
 
 /* =========================
-   FOCUS VISIBLE (aksesibel)
+   INTERACTIONS
 ========================= */
-:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.35);
-  border-radius: 8px;
+@media (hover:none), (pointer:coarse){
+  nav a:hover { background:none; color:inherit; }
+  .upload-label:active, .btn-upload:active,
+  button:active, .btn-del:active, .btn-delete:active,
+  #copyBtn:active, .btn-copy:active,
+  #generateBtn:active, .btn-generate:active,
+  #resetHistoryBtn:active, .btn-reset:active {
+    transform:translateY(1px); filter:brightness(0.95);
+  }
+}
+@media (hover:hover) and (pointer:fine){
+  nav a:hover, nav a.active { background:#3498db; color:#fff; transform:translateX(2px); }
+  .upload-label:hover, .btn-upload:hover { background:#2980b9; filter:brightness(1.05); }
+  #copyBtn:hover, .btn-copy:hover,
+  #generateBtn:hover, .btn-generate:hover,
+  #resetHistoryBtn:hover, .btn-reset:hover { filter:brightness(1.06); }
+  .btn-del:hover, .btn-delete:hover { background:#c82333; }
+  button.primary:hover { background:#27ae60; }
+  button.danger:hover  { background:#c0392b; }
+  .upload-label:active, .btn-upload:active,
+  #copyBtn:active, .btn-copy:active,
+  #generateBtn:active, .btn-generate:active,
+  #resetHistoryBtn:active, .btn-reset:active,
+  .btn-del:active, .btn-delete:active,
+  button:active { transform:translateY(0); filter:brightness(0.95); }
 }
 
 /* =========================
-   TOAST
+   TABLES
 ========================= */
+.table-wrap { width:100%; overflow:auto; -webkit-overflow-scrolling:touch; }
+.table { width:100%; border-collapse:collapse; background:#fff; position:relative; }
+.table th, .table td {
+  border:1px solid #e3e3e3; padding:6px; text-align:center; font-size:.8rem;
+}
+.table thead th { background:#f7fafc; font-weight:700; }
+td.aksi, .col-aksi { white-space:nowrap; }
+td.aksi .btn-del, td.aksi .btn-delete { padding:8px 12px; font-weight:700; }
+
+/* =========================
+   SERAH PAGE CUSTOM
+========================= */
+:root {
+  --serah-head-bg:#3498db; --serah-head-ink:#fff; --serah-head-border:#d6e8ff;
+  --serah-aksi-head:#ffe8e8; --serah-aksi-ink:#7f1d1d;
+  --serah-row-even:#fafcff; --serah-row-hover:#f3f9ff;
+}
+body[data-page="serah"] .table-wrap { max-height:65vh; overflow:auto; border-radius:10px; }
+body[data-page="serah"] .table thead th {
+  position:sticky; top:0; z-index:3;
+  background:var(--serah-head-bg); color:var(--serah-head-ink);
+  border-color:var(--serah-head-border); font-size:.85rem;
+  font-weight:700; padding:6px; text-align:center;
+}
+body[data-page="serah"] .table th.aksi,
+body[data-page="serah"] .table th.col-aksi { background:var(--serah-aksi-head); color:var(--serah-aksi-ink); }
+body[data-page="serah"] .table td { text-align:center; vertical-align:middle; padding:8px; }
+body[data-page="serah"] .table th.aksi,
+body[data-page="serah"] .table td.aksi { text-align:center; position:sticky; right:0; z-index:4; background:#fff; box-shadow:-1px 0 0 #e3e3e3 inset; }
+body[data-page="serah"] .table tbody tr:nth-child(even){ background:var(--serah-row-even); }
+@media (hover:hover) and (pointer:fine){
+  body[data-page="serah"] .table tbody tr:hover{ background:var(--serah-row-hover); }
+}
+
+/* Dark mode tweak */
+body.dark-mode[data-page="serah"] .table thead th { background:#0f172a; color:#e5e7eb; border-color:#1f2937; }
+body.dark-mode[data-page="serah"] .table th.aksi,
+body.dark-mode[data-page="serah"] .table th.col-aksi { background:#3b0a0a; color:#fdecec; }
+body.dark-mode[data-page="serah"] .table td.aksi { background:#1f2937; box-shadow:-1px 0 0 #374151 inset; }
+body.dark-mode[data-page="serah"] .table tbody tr:nth-child(even){ background:#111827; }
+
+/* Controls bar */
+body[data-page="serah"] .controls-bar {
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  margin:8px 0 10px; position:sticky; top:10px; z-index:6;
+  background:#fff; border:1px solid #e5e7eb; border-radius:10px;
+  padding:10px 12px; box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+body[data-page="serah"] .controls-left { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+body[data-page="serah"] .controls-left label { font-weight:600; font-size:.95rem; }
+body[data-page="serah"] .controls-left input[type="date"] {
+  max-width:200px; padding:.55rem .65rem; font-size:.95rem;
+  border-radius:8px; text-align:center; text-align-last:center;
+}
+body[data-page="serah"] .controls-right.btn-row { gap:10px; margin:0; }
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width:768px){
+  .dashboard { flex-direction:column; }
+  .sidebar {
+    transition:transform .3s; position:fixed; top:0; left:0; height:100%;
+    z-index:999; transform:translateX(-100%); width:60vw; padding:1rem; gap:2.5rem;
+  }
+  .sidebar.visible { transform:translateX(0); }
+  .sidebar-overlay {
+    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.4); z-index:998;
+  }
+  .sidebar-overlay.show { display:block; }
+  .sidebar-toggle-btn { display:inline-block; font-size:1.4rem; }
+  .main { padding:1rem; }
+  .dashboard-header { gap:.75rem; margin-bottom:1rem; }
+  html { font-size:12px; }
+  .card { padding:1rem; border-radius:10px; }
+  .card h3 { margin-bottom:.75rem; font-size:1.05rem; line-height:1.3; }
+  .form-group { gap:.4rem; margin:.75rem 0; }
+  label { font-size:.95rem; }
+  .form-group select { font-size:11px; }
+  input[type="date"], select, pre { font-size:.95rem; padding:.5rem .6rem; border-radius:6px; margin-bottom:.75rem; }
+  .upload-label, .btn-upload { padding:8px 10px; font-size:.9rem; border-radius:6px; gap:6px; margin-bottom:.75rem; }
+  .output-preview { font-size:11px; min-height:100px; padding:10px; }
+  .card .upload-label, .card .btn-upload { max-width:150px; width:100%; }
+  .card button { width:100%; max-width:150px; }
+  .btn-row { justify-content:center; gap:12px; margin-top:20px; flex-wrap:wrap; }
+  .dashboard-header .page-title,
+  .dashboard-header h1,
+  .dashboard-header h3 {
+    position:static; transform:none; margin:0 auto; text-align:center;
+    pointer-events:auto; font-size:1.6rem; flex:1; justify-content:center;
+    display:flex; align-items:center; gap:8px;
+  }
+  body.dark-mode .sidebar-toggle-btn { color:#fff; }
+  body[data-page="serah"] .controls-bar { flex-direction:column; align-items:stretch; top:6px; }
+  body[data-page="serah"] .controls-left { justify-content:center; }
+  body[data-page="serah"] .controls-right.btn-row { justify-content:center; flex-wrap:wrap; }
+  body[data-page="serah"] .controls-right.btn-row button { width:50%; max-width:150px; }
+  body[data-page="serah"] .controls-left label { font-size:.85rem; }
+  body[data-page="serah"] .controls-left input[type="date"]{ max-width:100%; }
+}
+
+/* =========================
+   EXTRA
+========================= */
+.output-preview {
+  background:#ecf0f1; border:1px solid #d8e1e8; border-radius:8px;
+  padding:12px; min-height:110px; overflow:auto; font-size:12px;
+}
+.spinner { width:18px; height:18px; border-radius:50%; border:3px solid #ccc; border-top-color:#3498db; display:inline-block; animation:spin 1s linear infinite; }
+@keyframes spin { to{ transform:rotate(360deg);} }
 .toast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #28a745;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 8px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.2);
-  z-index: 9999;
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  font-size: 14px;
+  position:fixed; top:20px; right:20px; background:#28a745; color:#fff;
+  padding:12px 18px; border-radius:8px; box-shadow:0 0 12px rgba(0,0,0,.2);
+  z-index:9999; opacity:0; transform:translateY(-20px);
+  transition:all .3s ease; cursor:pointer; font-size:14px;
 }
-.toast.show { opacity: 1; transform: translateY(0); }
-
-/* =========================
-   MISC
-========================= */
-.logo-icon { width: 50px; height: 50px; margin-right: 0; vertical-align: middle; }
-
-/* =========================
-   FORCE OVERRIDES (antiselip)
-   — taruh PALING BAWAH agar menang spesifisitas
-========================= */
-#copyBtn, .btn-copy {
-  background-color: #2ecc71 !important; /* samain persis primary */
-  color: #fff !important;
-}
+.toast.show { opacity:1; transform:translateY(0); }
+.logo-icon { width:50px; height:50px; vertical-align:middle; }

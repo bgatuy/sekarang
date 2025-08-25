@@ -51,18 +51,29 @@ function formatTanggalSerahForPdf(val){ if(!val||!/^\d{4}-\d{2}-\d{2}$/.test(val
 function getPdfHistori(){ const arr=JSON.parse(localStorage.getItem('pdfHistori')||'[]'); return Array.isArray(arr)?arr:[];}
 function setPdfHistori(arr){ localStorage.setItem('pdfHistori', JSON.stringify(arr)); }
 
+
 function collectRowsForPdf(){
   const rows=[];
   document.querySelectorAll('#historiBody tr').forEach((tr,i)=>{
-    const cells=tr.querySelectorAll('td'); if(cells.length<6) return;
-    const no=cells[0].textContent.trim()||`${i+1}`;
-    const tglSerahCell = tr.querySelector('.tgl-serah')?.textContent.trim() || '';
-    const namaUker = stripLeadingColon(cells[2].textContent.trim()||'-'); // guard kolon
-    const tglPekerjaan = cells[3].textContent.trim()||'-';
-    rows.push({ no, tanggalSerah: formatTanggalSerahForPdf(tglSerahCell), namaUker, tanggalPekerjaan: tglPekerjaan });
+    const cells = tr.querySelectorAll('td'); if(cells.length<6) return;
+
+    const no = cells[0].textContent.trim() || `${i+1}`;
+
+    // ⬇️ GANTI: ambil ISO dari data-attr kalau ada; fallback parse teks sel
+    const cellTanggal = tr.querySelector('.tgl-serah') || cells[1];
+    const raw = (cellTanggal?.dataset?.iso || cellTanggal?.textContent || '').trim();
+    const tanggalSerah = /^\d{4}-\d{2}-\d{2}$/.test(raw) 
+      ? formatTanggalSerahForPdf(raw)       // ISO -> dd/mm/yyyy
+      : (raw || '-');                       // sudah dd/mm/yyyy atau kosong
+
+    const namaUker = stripLeadingColon(cells[2].textContent.trim() || '-');
+    const tanggalPekerjaan = cells[3].textContent.trim() || '-';
+
+    rows.push({ no, tanggalSerah, namaUker, tanggalPekerjaan });
   });
   return rows;
 }
+
 
 /* ========= IndexedDB helper ========= */
 function openDb(){
@@ -105,11 +116,29 @@ async function generatePdfSerahTerima(){
     doc.autoTable({
       head:[['NO.','TANGGAL SERAH TERIMA','NAMA UKER','TANGGAL PEKERJAAN']],
       body:chunk.map(r=>{globalIndex+=1; return [r.no||globalIndex, r.tanggalSerah||'-', r.namaUker||'-', r.tanggalPekerjaan||'-'];}),
-      startY:30,
-      styles:{fontSize:8,minCellHeight:5,cellPadding:1,halign:'center',valign:'middle',lineColor:[0,0,0],lineWidth:.2,textColor:[0,0,0]},
-      headStyles:{fillColor:false,fontSize:9,fontStyle:'bold'},
-      bodyStyles:{fontSize:8,textColor:[0,0,0],lineColor:[0,0,0]},
-      columnStyles:{0:{cellWidth:10},1:{cellWidth:40},2:{cellWidth:90},3:{cellWidth:40}},
+      startY:28,
+      styles:{
+        fontSize:5,
+        minCellHeight:4,
+        cellPadding:0.5,
+        halign:'center',
+        valign:'middle',
+        lineColor:[0,0,0],
+        lineWidth:.2,
+        textColor:[0,0,0]},
+      headStyles:{
+        fillColor:false,
+        fontSize:7,
+        fontStyle:'bold'},
+      bodyStyles:{
+        fontSize:5,
+        textColor:[0,0,0],
+        lineColor:[0,0,0]},
+      columnStyles:{
+        0:{cellWidth:10},
+        1:{cellWidth:40},
+        2:{cellWidth:90},
+        3:{cellWidth:40}},
       theme:'grid', margin:{left:15,right:15}
     });
 
@@ -118,10 +147,24 @@ async function generatePdfSerahTerima(){
       head:[['TTD TEKNISI','TTD LEADER','TTD CALL CENTER']],
       body:[['','','']],
       startY:yAfter,
-      styles:{fontSize:9,halign:'center',valign:'middle',lineColor:[0,0,0],lineWidth:.2,textColor:[0,0,0]},
-      headStyles:{fontStyle:'bold',fontSize:9,textColor:[0,0,0],fillColor:false,minCellHeight:5},
+      styles:{
+        fontSize:7,
+        halign:'center',
+        valign:'middle',
+        lineColor:[0,0,0],
+        lineWidth:.2,
+        textColor:[0,0,0]},
+      headStyles:{
+        fontStyle:'bold',
+        fontSize:7,
+        textColor:[0,0,0],
+        fillColor:false,
+        minCellHeight:5},
       bodyStyles:{minCellHeight:24},
-      columnStyles:{0:{cellWidth:60},1:{cellWidth:60},2:{cellWidth:60}},
+      columnStyles:{
+        0:{cellWidth:60},
+        1:{cellWidth:60},
+        2:{cellWidth:60}},
       theme:'grid', margin:{left:15,right:15}
     });
   });
@@ -219,14 +262,25 @@ function renderTabel(){
 }
 
 inputTanggalSerah?.addEventListener('change', ()=>{
-  const v=inputTanggalSerah.value||'';
-  document.querySelectorAll('.tgl-serah').forEach(td=>td.textContent=v);
-  btnGenerate.disabled = !v;
+  const iso = inputTanggalSerah.value || '';
+  document.querySelectorAll('.tgl-serah').forEach(td=>{
+    td.dataset.iso = iso;                                   // simpan ISO rapi
+    td.textContent = iso ? formatTanggalSerahForPdf(iso) : ''; // tampil dd/mm/yyyy
+  });
+  btnGenerate.disabled = !iso;
 });
+
 
 tbody?.addEventListener('click', async (e)=>{
   const btn = e.target.closest('.btn-del'); if(!btn) return;
   if(!confirm('Hapus entri ini dari histori?')) return;
+
+    const isoNow = inputTanggalSerah?.value || '';
+  if (isoNow) document.querySelectorAll('.tgl-serah').forEach(td=>{
+    td.dataset.iso = isoNow;
+    td.textContent = formatTanggalSerahForPdf(isoNow); // dd/mm/yyyy
+  });
+
 
   const idx = parseInt(btn.dataset.i,10);
   const arr = getPdfHistori();
