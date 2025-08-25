@@ -1,13 +1,24 @@
 {
   "name": "sekarang",
   "version": "1.0.0",
-  "type": "module",
+  "main": "appsheet.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "vite": "^5.2.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bgatuy/sekarang.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bgatuy/sekarang/issues"
+  },
+  "homepage": "https://github.com/bgatuy/sekarang#readme",
+  "description": "",
+  "dependencies": {
+    "multiparty": "^4.2.3",
+    "pdf-parse": "^1.1.1"
   }
 }
