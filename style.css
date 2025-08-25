@@ -143,7 +143,7 @@ body[data-page="appsheet"] .btn-copy {
    INTERACTIONS
 ========================= */
 @media (hover:none), (pointer:coarse){
-  nav a:hover { background:none; color:inherit; }
+  nav a:hover { background: #3498db; color:#fff; transform:translateX(2px); }
   .upload-label:active, .btn-upload:active,
   button:active, .btn-del:active, .btn-delete:active,
   #copyBtn:active, .btn-copy:active,
@@ -153,7 +153,7 @@ body[data-page="appsheet"] .btn-copy {
   }
 }
 @media (hover:hover) and (pointer:fine){
-  nav a:hover, nav a.active { background:#3498db; color:#fff; transform:translateX(2px); }
+  nav a:hover, nav a.active { background: #3498db; color:#fff; transform:translateX(2px); }
   .upload-label:hover, .btn-upload:hover { background:#2980b9; filter:brightness(1.05); }
   #copyBtn:hover, .btn-copy:hover,
   #generateBtn:hover, .btn-generate:hover,
