@@ -2,7 +2,9 @@
    RESET & BASE
 ========================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; }
+
+html, body { height: 100%; -webkit-text-size-adjust: 100%; }
+
 body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #f4f4f4;
@@ -49,12 +51,10 @@ body.dark-mode .spinner { border-color:#555; border-top-color:#3498db; }
 nav { display: flex; flex-direction: column; gap: 0.75rem; }
 nav a {
   text-decoration: none; color: #ddd;
-  padding: 0.5rem 1rem; border-radius: 8px; transition: 0.2s;
+  padding: 0.5rem 1rem; border-radius: 8px;
+  transition: background-color .2s, color .2s;
 }
-/* Hover tetap aktif di desktop (di-mobile dimatiin via preferensi pointer) */
-@media (hover: hover) and (pointer: fine) {
-  nav a:hover { background-color: #3498db; color: #fff; }
-}
+/* hover hanya untuk desktop — lihat media query di bawah */
 
 /* Main */
 .main { flex: 1; padding: 2rem; }
@@ -66,10 +66,11 @@ nav a {
   position: relative;
 }
 .sidebar-toggle-btn {
-  display: none; background: none; border: none; font-size: 1.6rem;
-  cursor: pointer; margin-right: 1rem; line-height: 1;
-  -webkit-tap-highlight-color: transparent;
-  color: #111;
+  display: none;
+  background: none; border: none;
+  font-size: 1.6rem; line-height: 1;
+  cursor: pointer; margin-right: 1rem;
+  color: #111; /* ikut light mode */
 }
 
 /* Center only the header title */
@@ -93,29 +94,15 @@ nav a {
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-.card h3 { 
-  margin-bottom: 1rem; 
-  text-align: center; 
-  font-size: 14px;
-}
+.card h3 { margin-bottom: 1rem; text-align: center; } /* judul section center */
 
 .form-group {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* ini kuncinya */
   gap: .5rem;
   margin: 1rem 0;
 }
-
-/* ===== Nice select (dropdown) – teks rata kiri ===== */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* center control */
-  gap: .5rem;
-  margin: 1rem 0;
-}
-
 .form-group select {
   max-width: 180px;
   width: 100%;
@@ -124,9 +111,6 @@ nav a {
   text-align-last: center;
 }
 
-/* pastikan opsi dropdown selalu rata kiri */
-.form-group select option { text-align: left; }
-
 .form-group input[type="date"] {
   max-width: 180px;
   width: 100%;
@@ -134,7 +118,6 @@ nav a {
   text-align: center;
   text-align-last: center;
 }
-
 label { font-weight: 600; }
 
 /* Inputs */
@@ -148,59 +131,20 @@ input[type="file"], select, pre, input[type="date"], input[type="text"], input[t
   border-radius: 8px; 
   background:#fff;
 }
-label { font-weight: 600; }
 
 pre { background-color: #ecf0f1; min-height: 120px; white-space: pre-wrap; }
 
-/* =========================
-   UPLOAD LABEL + FILE INPUT OVERLAY
-========================= */
+/* Upload button (label) */
 .upload-label {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background-color: #3498db;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color .2s;
+  display: inline-flex; align-items: center; gap: 8px;
+  background-color: #3498db; color: #fff; padding: 14px;
+  border-radius: 8px; cursor: pointer; user-select: none;
+  transition: transform .05s, background-color .2s;
   margin-bottom: 1rem;
-  overflow: hidden;
-  touch-action: manipulation;
 }
+input[type="file"] { display: none; }
 
-/* Sembunyikan SEMUA input file… */
-input[type="file"] {
-  display: none !important;
-}
-
-/* …kecuali yang berada di dalam tombol custom (override) */
-.upload-label > input[type="file"] {
-  display: block !important;
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;          /* invisible tapi tetap interaktif */
-  cursor: pointer;
-  font-size: 0;
-}
-
-.card .upload-label {
-  width: 100%;
-  max-width: 180px;
-}
-
-.upload-label:hover { background-color: #2980b9; }
-/* Mobile-safe :active tanpa transform besar biar nggak flicker */
-.upload-label:active { box-shadow: inset 0 0 0 9999px rgba(0,0,0,.06); }
-
-/* Output preview */
+/* Output preview (juga dipakai file list merge) */
 .output-preview {
   background:#ecf0f1; 
   border:1px solid #d8e1e8; 
@@ -209,48 +153,6 @@ input[type="file"] {
   overflow:auto;
   font-size: 12px;
 }
-
-/* =========================
-   BUTTONS
-========================= */
-button {
-  padding: 0.9rem 2.4rem; 
-  font-size: 0.9rem; 
-  border: none; 
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer; 
-  transition: background-color .15s ease;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-button:active { box-shadow: inset 0 0 0 9999px rgba(0,0,0,.06); }
-
-.btn-del {
-  background-color: #dc3545;
-  color: #fff;
-  padding: 8px 15px;
-  font-size: 0.75rem;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: background-color .15s ease;
-}
-@media (hover: hover) and (pointer: fine) {
-  .btn-del:hover { background-color: #c82333; }
-}
-.btn-del:active { background-color: #a71d2a; }
-
-button.primary { background-color: #2ecc71; color: #fff; }
-@media (hover: hover) and (pointer: fine) {
-  button.primary:hover { background-color: #27ae60; }
-}
-button.primary:active { background-color: #219150; }
-
-button.danger { background:#e74c3c; color:#fff; }
-@media (hover: hover) and (pointer: fine) {
-  button.danger:hover { background:#c0392b; }
-}
-button.danger:active { background:#a93226; }
 
 /* =========================
    PER HALAMAN: TOMBOL & UPLOAD
@@ -278,7 +180,73 @@ body[data-page="merge"] .upload-label {
 body[data-page="merge"] .btn-row { justify-content: center; }
 
 /* =========================
-   TABLES
+   BUTTONS (mobile-first)
+========================= */
+button {
+  padding: 0.9rem 2.4rem; 
+  font-size: 0.9rem; 
+  border: none; 
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer; 
+  transition: background-color .15s ease, transform .05s ease;
+}
+
+.card button,
+.card .upload-label {
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card .upload-label { max-width: 180px; width: 100%; }
+.card button { width: 100%; max-width: 200px; }
+
+.btn-row { display: flex; justify-content: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+.btn-row button { margin: 0; }
+
+/* Variants */
+button.primary { background-color: #2ecc71; color: #fff; }
+button.danger  { background:#e74c3c; color:#fff; }
+
+/* Desktop-only hover (pointer: fine) */
+@media (hover: hover) and (pointer: fine) {
+  nav a:hover, nav a.active { background-color: #3498db; color: #fff; }
+  .upload-label:hover { background-color: #2980b9; }
+  .btn-del:hover { background-color: #c82333; }
+  button.primary:hover { background-color: #27ae60; }
+  button.danger:hover  { background:#c0392b; }
+}
+
+/* Mobile: non-hover, pakai :active */
+@media (hover: none), (pointer: coarse) {
+  nav a:hover { background: none; color: inherit; } /* matikan efek hover mobile */
+  .upload-label:hover,
+  .btn-del:hover,
+  button.primary:hover,
+  button.danger:hover { background: inherit; }
+
+  .upload-label:active { transform: translateY(1px); background-color: #2980b9; }
+  button:active { transform: translateY(1px); }
+}
+
+/* Override khusus tombol Hapus */
+.btn-del {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 8px 15px;
+  font-size: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform .05s ease;
+}
+
+/* =========================
+   TABLES (Form Serah Terima)
 ========================= */
 .table-wrap { width:100%; overflow:auto; -webkit-overflow-scrolling: touch; }
 .table { width:100%; border-collapse: collapse; background:#fff; }
@@ -310,13 +278,9 @@ body[data-page="merge"] .btn-row { justify-content: center; }
 
   .sidebar {
     transition: transform 0.3s ease;
-    position: fixed;
-    top: 0; left: 0; height: 100%;
-    z-index: 999;
-    transform: translateX(-100%);
-    width: 60vw;
-    padding: 1rem 1rem;
-    gap: 2.5rem;
+    position: fixed; top: 0; left: 0; height: 100%;
+    z-index: 999; transform: translateX(-100%);
+    width: 60vw; padding: 2rem 1rem; gap: 2.5rem;
   }
   .sidebar.visible { transform: translateX(0); }
   .sidebar-overlay {
@@ -350,11 +314,7 @@ body[data-page="merge"] .btn-row { justify-content: center; }
   .upload-label { padding: 8px 10px; font-size: .9rem; border-radius: 6px; gap: 6px; margin-bottom: .75rem; }
   .output-preview { font-size: 11px; min-height: 100px; padding: 10px; }
 
-  /* Buttons mobile: center & width nyaman */
-  .card button, .card .upload-label {
-    margin-left: auto; margin-right: auto;
-    display: inline-flex; align-items: center; justify-content: center;
-  }
+  /* Buttons di mobile */
   .card .upload-label { max-width: 150px; width: 100%; }
   .card button { width: 100%; max-width: 150px; }
 
@@ -379,23 +339,7 @@ body[data-page="merge"] .btn-row { justify-content: center; }
   body.dark-mode .sidebar-toggle-btn { color: #fff; }
 }
 
-/* =========================
-   SIDEBAR ACTIVE (KHUSUS DESKTOP)
-========================= */
-@media (min-width: 769px) {
-  nav a.active {
-    background-color: #3498db;
-    color: #fff;
-  }
-  body.dark-mode nav a.active {
-    background-color: #333;
-    color: #fff;
-  }
-}
-
-/* =========================
-   TOAST
-========================= */
+/* Toast */
 .toast {
   position: fixed;
   top: 20px;
