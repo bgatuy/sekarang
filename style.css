@@ -222,9 +222,8 @@ input[type="file"] { display: none; }
    Fokus utama :active biar “kerasa ditekan”
 ========================= */
 @media (hover: none), (pointer: coarse) {
-  @media (hover: none), (pointer: coarse) {
   /* matikan hover hanya untuk link nav */
-  nav a:hover { background: none; color: inherit; }
+  nav a:hover { background-color: #3498db; color: #fff; transform: translateX(2px); }
 
   /* biarkan tombol ga diubah di :hover mobile */
   .upload-label:active,
