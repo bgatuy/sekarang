@@ -278,6 +278,9 @@ body[data-page="serah"] .controls-right.btn-row { gap:10px; margin:0; }
   .sidebar-overlay.show { display:block; }
   .sidebar-toggle-btn { display:inline-block; font-size:1.4rem; }
   .main { padding:1rem; }
+  nav a {
+    font-size: 1.2rem;  /* agak lebih besar biar kebaca enak di HP */
+  }
   .dashboard-header { gap:.75rem; margin-bottom:1rem; }
   html { font-size:12px; }
   .card { padding:1rem; border-radius:10px; }
