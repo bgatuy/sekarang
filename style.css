@@ -222,15 +222,22 @@ input[type="file"] { display: none; }
    Fokus utama :active biar “kerasa ditekan”
 ========================= */
 @media (hover: none), (pointer: coarse) {
-  nav a:hover { background: none; color: inherit; } /* matikan hover di mobile */
-  .upload-label:hover,
-  .btn-upload:hover,
-  .btn-del:hover, .btn-delete:hover,
-  button.primary:hover,
-  button.danger:hover,
-  #copyBtn:hover, .btn-copy:hover,
-  #generateBtn:hover, .btn-generate:hover,
-  #resetHistoryBtn:hover, .btn-reset:hover { background: inherit; }
+  @media (hover: none), (pointer: coarse) {
+  /* matikan hover hanya untuk link nav */
+  nav a:hover { background: none; color: inherit; }
+
+  /* biarkan tombol ga diubah di :hover mobile */
+  .upload-label:active,
+  .btn-upload:active,
+  button:active,
+  .btn-del:active, .btn-delete:active,
+  #copyBtn:active, .btn-copy:active,
+  #generateBtn:active, .btn-generate:active,
+  #resetHistoryBtn:active, .btn-reset:active {
+    transform: translateY(1px);
+    filter: brightness(0.95);
+  }
+}
 
   .upload-label:active,
   .btn-upload:active,
